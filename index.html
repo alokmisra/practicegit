@@ -2,43 +2,344 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Enhanced HTML Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Super Enhanced HTML Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8f8f8; }
-        header { background: #0074d9; color: white; padding: 20px 0; text-align: center; }
-        nav { background: #005fa3; text-align: center; }
-        nav a { color: white; text-decoration: none; padding: 14px 20px; display: inline-block; }
-        nav a:hover { background: #004974; }
-        main { max-width: 800px; margin: 30px auto; background: white; border-radius: 10px; box-shadow: 0 2px 8px #ccc; padding: 24px; }
-        .image-container { text-align: center; }
-        .image-container img { max-width: 100%; border-radius: 8px; }
-        .caption { color: #555; font-size: 0.95em; margin: 8px 0 18px 0; }
-        section { margin-bottom: 30px; }
-        button { background: #2ecc40; color: white; border: none; padding: 10px 18px; font-size: 1em; border-radius: 5px; cursor: pointer; }
-        button:hover { background: #27ae60; }
-        form label { display: block; margin-top: 12px; }
-        form input, form textarea { width: 100%; padding: 8px; margin-top: 4px; border-radius: 4px; border: 1px solid #ccc; }
-        form textarea { resize: vertical; }
-        form input[type="submit"] { width: auto; background: #0074d9; color: white; border: none; margin-top: 16px; }
-        form input[type="submit"]:hover { background: #005fa3; }
-        footer { text-align: center; background: #f1f1f1; padding: 15px 0; color: #888; margin-top: 40px; border-top: 1px solid #e4e4e4; }
-    </style>
-    <script>
-        function sayHello() {
-            alert("Hello, welcome to my enhanced HTML page!");
+        :root {
+            --primary: #0074d9;
+            --accent: #2ecc40;
+            --bg: #f8f8f8;
+            --text: #222;
+            --nav-bg: #fff;
         }
-    </script>
+        body.dark {
+            --primary: #222;
+            --accent: #ffce00;
+            --bg: #23272f;
+            --text: #e8e8e8;
+            --nav-bg: #181c22;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.2s, color 0.2s;
+        }
+        header {
+            text-align: center;
+            padding: 2.2em 1em 1.5em;
+            background: var(--primary);
+            color: #fff;
+            letter-spacing: 1px;
+            border-radius: 0 0 2em 2em;
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--nav-bg);
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            padding: 1em 0;
+            box-shadow: 0 2px 12px #0001;
+            z-index: 1000;
+            transition: background 0.2s;
+        }
+        nav a {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+            padding: 6px 0;
+        }
+        nav a.active, nav a:hover {
+            color: var(--accent);
+        }
+        .theme-toggle {
+            position: absolute;
+            right: 2em;
+            top: 1.2em;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #0001;
+            padding: 34px 20px 34px 20px;
+        }
+        section {
+            margin-bottom: 48px;
+        }
+        h2 {
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 1px 10px #0001;
+            object-fit: cover;
+            min-height: 140px;
+        }
+        .caption {
+            color: #777;
+            font-size: 0.98em;
+            margin: 8px 0 18px 0;
+            text-align: center;
+        }
+        .faq {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e2e2e2;
+            padding: 12px 0;
+        }
+        .faq-question {
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .faq-question:hover {
+            color: var(--accent);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 120px;
+            margin-top: 6px;
+            color: #444;
+        }
+        .testimonials {
+            display: flex;
+            overflow-x: auto;
+            gap: 18px;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 12px;
+        }
+        .testimonial {
+            flex: 0 0 300px;
+            background: var(--bg);
+            border-radius: 14px;
+            box-shadow: 0 1px 8px #0001;
+            padding: 20px;
+            scroll-snap-align: center;
+        }
+        .testimonial p {
+            font-style: italic;
+        }
+        .testimonial .author {
+            margin-top: 1em;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .contact-form {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        form label { display: block; margin-top: 14px; }
+        form input, form textarea {
+            width: 100%;
+            padding: 9px;
+            margin-top: 4px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            background: var(--bg);
+            color: var(--text);
+        }
+        form textarea { resize: vertical; }
+        form input[type="submit"] {
+            width: auto;
+            background: var(--primary);
+            color: white;
+            border: none;
+            margin-top: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 26px;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+        form input[type="submit"]:hover {
+            background: var(--accent);
+        }
+        .socials {
+            margin-top: 22px;
+            text-align: center;
+        }
+        .socials a {
+            display: inline-block;
+            margin: 0 7px;
+            color: var(--primary);
+            font-size: 1.7em;
+            transition: color 0.2s;
+        }
+        .socials a:hover {
+            color: var(--accent);
+        }
+        footer {
+            text-align: center;
+            background: var(--primary);
+            color: #fff;
+            padding: 18px 0;
+            margin-top: 48px;
+            border-radius: 2em 2em 0 0;
+        }
+        @media (max-width: 700px) {
+            main { padding: 14px 2vw; }
+            .testimonials { flex-direction: column; align-items: stretch; }
+            .testimonial { flex: 1 1 auto; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 </head>
 <body>
     <header>
-        <h1>Welcome to My Enhanced HTML Page!</h1>
+        <h1>My Super Enhanced HTML Page</h1>
+        <p>Modern features, smooth experience, and a touch of interactivity.</p>
+        <button class="theme-toggle" onclick="toggleTheme()">🌗 Theme</button>
     </header>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
+    <nav id="navbar">
+        <a href="#about" class="nav-link active">About</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#contact" class="nav-link">Contact</a>
     </nav>
     <main>
         <section id="about">
             <h2>About This Page</h2>
+            <p>
+                Welcome to your feature-rich starter HTML page. It includes a sticky navbar, a responsive layout, interactive FAQ, testimonial carousel, dark/light mode, and more—all using just HTML, CSS, and a sprinkle of JavaScript.
+            </p>
+        </section>
+        <section id="gallery">
+            <h2>Gallery</h2>
+            <div class="gallery">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Nature Image 1"/>
+                    <div class="caption">Explore beautiful landscapes.</div>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=600&q=80" alt="Nature Image 2"/>
+                    <div class="caption">Discover new perspectives.</div>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Nature Image 3"/>
+                    <div class="caption">Embrace the journey.</div>
+                </div>
+            </div>
+        </section>
+        <section id="faq">
+            <h2>FAQ</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <div class="faq-question">What technologies does this page use?</div>
+                    <div class="faq-answer">Just plain HTML5, CSS3, and vanilla JavaScript—no external frameworks!</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is it responsive?</div>
+                    <div class="faq-answer">Yes! Try resizing your browser or opening it on your mobile device.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How can I use the dark/light mode?</div>
+                    <div class="faq-answer">Click the 🌗 Theme button on the top right to switch between dark and light mode.</div>
+                </div>
+            </div>
+        </section>
+        <section id="testimonials">
+            <h2>Testimonials</h2>
+            <div class="testimonials" id="testimonial-carousel">
+                <div class="testimonial">
+                    <p>“This template helped me get started with my website project in no time. Clean, modern, and easy to customize!”</p>
+                    <div class="author">— Alex, Web Developer</div>
+                </div>
+                <div class="testimonial">
+                    <p>“I love the smooth scroll and dark mode! The interactive FAQ is a nice touch.”</p>
+                    <div class="author">— Priya, Designer</div>
+                </div>
+                <div class="testimonial">
+                    <p>“A perfect foundation for personal or small business websites. No frameworks needed.”</p>
+                    <div class="author">— Sam, Student</div>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form class="contact-form" autocomplete="off" onsubmit="return submitForm(event)">
+                <label for="name">Name:</label>
+                <input id="name" type="text" required minlength="2" placeholder="Enter your name">
+
+                <label for="email">Email:</label>
+                <input id="email" type="email" required placeholder="your@email.com">
+
+                <label for="message">Message:</label>
+                <textarea id="message" rows="4" required minlength="5" placeholder="Type your message"></textarea>
+
+                <input type="submit" value="Send">
+            </form>
+            <div class="socials">
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        &copy; 2025 My Super Enhanced HTML Page | Designed with ❤️
+    </footer>
+    <script>
+        // Navbar smooth scroll and active link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.onclick = function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+        // FAQ collapse
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.onclick = function() {
+                this.parentElement.classList.toggle('active');
+            }
+        });
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+        }
+        // Simple form "send" feedback
+        function submitForm(event) {
+            event.preventDefault();
+            alert("Thank you for contacting me, " + document.getElementById('name').value + "!");
+            event.target.reset();
+            return false;
+        }
+        // Highlight navbar link on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            let scrollPos = window.scrollY + 120;
+            sections.forEach(
